@@ -1,12 +1,26 @@
+import { createBrowserRouter } from "react-router-dom"
+import { Home } from "./pages/home"
+import { Admin } from "./pages/admin"
+import { Login } from "./pages/login"
+import { Networks } from "./pages/networks"
 
-
-function App() {
-
-  return (
-<div>
-  <h1>Pagina Teste</h1>
-</div>
-  )
+const router = createBrowserRouter([
+{
+  path: "/",
+  element: <Home/>
+},
+{
+  path: "/admin",
+  element: <Admin/>
+},
+{
+  path: "/login",
+  element: <Login/>
+},
+{
+  path: "/admin/social",
+  element: <Networks/>
 }
+])
 
-export default App
+export { router };
