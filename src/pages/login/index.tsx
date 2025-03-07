@@ -1,16 +1,37 @@
-import { Link } from "react-router-dom";
+import { Link, replace, useNavigate } from "react-router-dom";
 import { Input } from "../../components/Input";
 import { useState, FormEvent } from "react";
+
+import { auth } from "../../services/firebaseConnection";
+import { signInWithEmailAndPassword } from "firebase/auth";
+
 
 export function Login(){
     const [Email, setEmail] = useState("");
     const [Password, setPassword] = useState("");
+    const navigate = useNavigate();
 
     function handleSubmit(e: FormEvent){
         e.preventDefault();
-        console.log(Email, Password);
+        
+        if(Email === "" || Password === ""){
+            alert("Preencha todos os campos!");
+            return;
+        }
+
+        signInWithEmailAndPassword(auth, Email, Password)
+        .then((response) => {
+            console.log("Logado com sucesso");
+            navigate("/admin", { replace: true}) 
+        })
+        .catch((error) => {
+            console.log("Erro ao logar");
+            console.log(error);
+        })
+
+
     }
-    
+
     return (
         <div className="flex flex-col w-full h-screen items-center justify-center">
             <Link to="/">
