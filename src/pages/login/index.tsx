@@ -28,8 +28,6 @@ export function Login(){
             console.log("Erro ao logar");
             console.log(error);
         })
-
-
     }
 
     return (
@@ -60,7 +58,7 @@ export function Login(){
                 className="h-9 bg-blue-600 rounded border-0 text-lg font-medium text-white">
                     Acessar
                 </button>
-                
+
             </form>
         </div>
     )
