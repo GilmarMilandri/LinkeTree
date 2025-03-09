@@ -4,5 +4,6 @@ export function Networks(){
         <div>
             <h1>Pagina Redes Sociais</h1>
         </div>
+        
     )
 }

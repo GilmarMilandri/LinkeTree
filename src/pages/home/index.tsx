@@ -31,6 +31,7 @@ export function Home(){
                     </Social>
                     
                 </footer>
+                
             </main>
 
         </div>

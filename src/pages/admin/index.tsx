@@ -19,7 +19,6 @@ export function Admin(){
     const [urlInput, setUrlInput] = useState("")
     const [textColorInput, setTextColorInput] = useState("#f1f1f1")
     const [backgroundColorInput, setBackgroundColorInput] = useState("#121212")
-
     const [links, setLinks] = useState<linkProps[]>([])
 
     useEffect(() => {
@@ -160,7 +159,7 @@ export function Admin(){
                     </button>
 
                 </div>
-                
+
             </article>
             ))}
 
