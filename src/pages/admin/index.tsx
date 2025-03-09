@@ -76,7 +76,7 @@ export function Admin(){
         });
 
     }
-
+a
     async function handleDeleteLink(id: string){
         const docRef = doc(db, "links", id);
         await deleteDoc(docRef);
