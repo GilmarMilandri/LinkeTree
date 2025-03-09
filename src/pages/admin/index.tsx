@@ -49,7 +49,6 @@ export function Admin(){
 
     }, [])
 
-
     function handleRegister(e: FormEvent){
         e.preventDefault();
 
@@ -76,7 +75,7 @@ export function Admin(){
         });
 
     }
-a
+
     async function handleDeleteLink(id: string){
         const docRef = doc(db, "links", id);
         await deleteDoc(docRef);
@@ -138,7 +137,6 @@ a
                     Cadastrar
                 </button>
 
-
             </form>
 
             <h2 className="font-bold text-white mb-4 text-2xl">
@@ -150,8 +148,9 @@ a
                 key={link.id} 
                 className="flex items-center justify-between w-11/12 max-w-xl rounded py-3 px-2 mb-2 select-none"
                 style={{background: link.bg, color: link.textColor}}
-            >
+                >
                 <p>{link.name}</p>
+
                 <div>
                     <button
                     onClick={ () => handleDeleteLink(link.id) }
@@ -159,10 +158,11 @@ a
                     >
                         <FiTrash size={20} color="#FFF"/>
                     </button>
+
                 </div>
+                
             </article>
             ))}
-
 
         </div>
     )
