@@ -1,10 +1,8 @@
-import { Link, replace, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Input } from "../../components/Input";
 import { useState, FormEvent } from "react";
-
 import { auth } from "../../services/firebaseConnection";
 import { signInWithEmailAndPassword } from "firebase/auth";
-
 
 export function Login(){
     const [Email, setEmail] = useState("");
@@ -20,7 +18,7 @@ export function Login(){
         }
 
         signInWithEmailAndPassword(auth, Email, Password)
-        .then((response) => {
+        .then(() => {
             console.log("Logado com sucesso");
             navigate("/admin", { replace: true}) 
         })
