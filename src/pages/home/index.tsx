@@ -95,15 +95,15 @@ export function Home(){
                     <footer className="flex justify-center gap-3 my-4">
 
                     <Social title="Facebook" url={socialLinks?.facebook}>
-                    <FaFacebook size={35} color="#FFF"/>
+                    <FaFacebook className="transition-transform hover:scale-110" size={35} color="#FFF"/>
                     </Social>
 
                     <Social title="Linkedin" url={socialLinks?.linkedin}>
-                    <FaLinkedin size={35} color="#FFF"/>
+                    <FaLinkedin className="transition-transform hover:scale-110" size={35} color="#FFF"/>
                     </Social>
 
                     <Social title="Instagram" url={socialLinks?.instagram}>
-                    <FaInstagram size={35} color="#FFF"/>
+                    <FaInstagram className="transition-transform hover:scale-110" size={35} color="#FFF"/>
                     </Social>
                     
                 </footer>
