@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Social } from "../../components/Social"
-import { FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa"
+import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa"
 import { db } from "../../services/firebaseConnection"
 import { getDocs, collection, orderBy, query, doc, getDoc  } from "firebase/firestore"
 
@@ -39,7 +39,7 @@ export function Home(){
                         name: doc.data().name,
                         url: doc.data().url,
                         bg: doc.data().bg,
-                        textColor: doc.data().textColor
+                        textColor: doc.data().textColor,
                     })
                 })
 
@@ -49,7 +49,26 @@ export function Home(){
            
         }
 
-        loadLinks();
+            loadLinks();
+    }, [])
+
+    useEffect (() => {
+        function loadSocialLinks(){
+            const docRef = doc(db, "social", "link")
+        getDoc(docRef)
+        .then((snapshot) => {
+            if(snapshot.data() !== undefined){
+                setSociallinks({
+                    facebook: snapshot.data()?.facebook,
+                    instagram: snapshot.data()?.instagram,
+                    linkedin: snapshot.data()?.linkedin,
+                })
+            }
+        })
+        }
+
+        loadSocialLinks();
+
     }, [])
 
     return (
@@ -58,31 +77,37 @@ export function Home(){
             <span className="text-gray-50 mb-5 mt-3">Veja meus links 👇</span>
 
             <main className="flex flex-col w-11/12 max-w-xl text-center">
-                {links.map((Link) =>(
-                    <section className="bg-white mb-4 w-full py-2 rounded-lg select-none transition-transform hover:scale-105 cursor-pointer">
-                    <a href="">
-                        <p className="text-base md:text-lg ">
-                            Canal no youtube
+            
+                {links.map((link) => (
+                    <section 
+                    style={{backgroundColor: link.bg }}
+                    key={link.id}
+                    className="bg-white mb-4 w-full py-2 rounded-lg select-none transition-transform hover:scale-105 cursor-pointer">
+                    <a href={link.url}>
+                        <p className="text-base md:text-lg" style={{color: link.textColor}}>
+                            {link.name}
                         </p>
                     </a>
                 </section>
                 ))}
 
-                <footer className="flex justify-center gap-3 my-4">
+                { socialLinks && Object.keys(socialLinks).length > 0 && (
+                    <footer className="flex justify-center gap-3 my-4">
 
-                    <Social url="https://youtube.com/sujeitoprogramador">
+                    <Social title="Facebook" url={socialLinks?.facebook}>
                     <FaFacebook size={35} color="#FFF"/>
                     </Social>
 
-                    <Social url="https://youtube.com/sujeitoprogramador">
-                    <FaYoutube size={35} color="#FFF"/>
+                    <Social title="Linkedin" url={socialLinks?.linkedin}>
+                    <FaLinkedin size={35} color="#FFF"/>
                     </Social>
 
-                    <Social url="https://youtube.com/sujeitoprogramador">
+                    <Social title="Instagram" url={socialLinks?.instagram}>
                     <FaInstagram size={35} color="#FFF"/>
                     </Social>
                     
                 </footer>
+                )}
                 
             </main>
 

@@ -23,7 +23,7 @@ export function Admin(){
 
     useEffect(() => {
         const linksRef = collection(db, "links");
-        const queryRef = query(linksRef, orderBy("createdAt", "asc"));
+        const queryRef = query(linksRef, orderBy("created", "asc"));
         
         const unsub = onSnapshot(queryRef, (snapshot) => {
             let lista = [] as linkProps[];
@@ -61,7 +61,7 @@ export function Admin(){
             url: urlInput,
             textColor: textColorInput,
             bg: backgroundColorInput,
-            createdAt: new Date()
+            created: new Date()
         })
         .then(() => {
             setNameInput("")
