@@ -1,21 +1,49 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Header } from "../../components/Header";
 import { Input } from "../../components/Input";
+import { db } from "../../services/firebaseConnection";
+import { setDoc, doc, getDoc } from "firebase/firestore";
 
 export function Networks(){
     const [facebook, setFacebook] = useState("")
     const [instagram, setInstagram] = useState("")
     const [linkedin, setLinkedin] = useState("")
 
+    useEffect(() => {
+        function loadLinks(){
+            const docRef = doc(db, "social", "link");
+            getDoc(docRef)
+            .then((snapshot) => {
+                if(snapshot.data() !== undefined){
+                    setFacebook(snapshot.data()?.facebook)
+                    setInstagram(snapshot.data()?.instagram)
+                    setLinkedin(snapshot.data()?.linkedin)
+                }
+            })
+            .catch((error) => {
+                console.log("Erro ao buscar os links", error);
+            })
+        }
+
+            loadLinks();
+        }, [])
+
     function handleRegister(e: FormEvent){
         e.preventDefault();
-        console.log({
-            facebook,
-            instagram,
-            linkedin
+       
+        setDoc(doc(db, "social", "link"), {
+            facebook: facebook,
+            instagram: instagram,
+            linkedin: linkedin
         })
-    }   
+        .then(() => {
+            console.log("Cadastrado com sucesso");
+        })
+        .catch((error) => {
+            console.error("Erro ao salvar ", error);
+        })
 
+    }   
 
     return (
         <div className="flex items-center flex-col min-h-screen pb-7 px-2">
@@ -32,7 +60,7 @@ export function Networks(){
                 onChange={(e) => setFacebook(e.target.value)}
                 />
 
-                <label className="text-white font-medium mt-2 mb-2">Link do facebook</label>
+                <label className="text-white font-medium mt-2 mb-2">Link do instagram</label>
                 <Input
                 type="url"
                 placeholder="Digite a url do instagram..."
@@ -40,7 +68,7 @@ export function Networks(){
                 onChange={(e) => setInstagram(e.target.value)}
                 />
 
-                <label className="text-white font-medium mt-2 mb-2">Link do facebook</label>
+                <label className="text-white font-medium mt-2 mb-2">Link do linkedin</label>
                 <Input
                 type="url"
                 placeholder="Digite a url do linkedin..."
@@ -50,9 +78,9 @@ export function Networks(){
 
                 <button 
                 type="submit" 
-                className="text-white bg-blue-600 h-9 rounded-md items-center justify-center flex mb-7 font-medium"
+                className="text-white bg-blue-600 h-9 rounded-md items-center justify-center flex mb-7 mt-2 font-medium cursor-pointer"
                 >
-
+                    Salvar Links
                 </button>
                 
             </form>
